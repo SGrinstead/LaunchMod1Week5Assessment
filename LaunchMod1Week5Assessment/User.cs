@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace User
+namespace UserNamespace
 {
     public class User
     {
@@ -32,27 +32,37 @@ namespace User
             }
         }
 
+        //rearranged if statements to avoid edge case of already having a password and using the method again with wrong email
+        //added writeline to use confirmation variable
+        //added else statement for wrong email
         public void CreatePassword(string email, string password)
         {
             if (email == Email)
             {
                 Password = password;
-            }
 
-            if (Password != null)
+                if (Password != null)
+                {
+                    var confirmation = "Password Created";
+                    Console.WriteLine(confirmation);
+                }
+            }
+            else
             {
-                var confirmation = "Password Created";
+                Console.WriteLine("Incorrect Email");
             }
         }
 
-        public string LogIn(string password)
+        //changed to void method that writes confirmations to console instead of returning a string
+        //This better adheres to the single responsibility principle as it no longer returns a value in addition to changing a property
+        public void LogIn(string password)
         {
             if (password == Password)
             {
                 IsLoggedIn = true;
-                return "Logged In";
+                Console.WriteLine("Logged In");
             }
-            return "Not Logged In";
+            Console.WriteLine("Not Logged In");
         }
 
         public void LogOut()
